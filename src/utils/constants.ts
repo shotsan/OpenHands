@@ -84,6 +84,42 @@ export const BUILT_IN_COMMANDS: SlashCommandItem[] = [
     },
     command: GOAL_COMMAND,
   },
+  {
+    skill: {
+      name: "condense",
+      type: "agentskills",
+      content: "Condense the conversation history to save context",
+      triggers: ["/condense"],
+    },
+    command: "/condense",
+  },
+  {
+    skill: {
+      name: "skills",
+      type: "agentskills",
+      content: "List available agent skills",
+      triggers: ["/skills"],
+    },
+    command: "/skills",
+  },
+  {
+    skill: {
+      name: "help",
+      type: "agentskills",
+      content: "Show the help menu",
+      triggers: ["/help"],
+    },
+    command: "/help",
+  },
+  {
+    skill: {
+      name: "feedback",
+      type: "agentskills",
+      content: "Provide feedback about the agent's performance",
+      triggers: ["/feedback"],
+    },
+    command: "/feedback",
+  },
 ];
 
 // Skill content metadata prefixes
