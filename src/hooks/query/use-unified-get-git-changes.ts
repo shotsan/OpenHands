@@ -64,23 +64,28 @@ export const useUnifiedGetGitChanges = () => {
         // Figure out new items by comparing with what we already have
         if (Array.isArray(currentData)) {
           const currentIds = new Set(currentData.map((item) => item.path));
-          const existingIds = new Set(orderedChanges.map((item) => item.path));
 
-          // Filter out items that already exist in orderedChanges
-          const newItems = currentData.filter(
-            (item) => !existingIds.has(item.path),
-          );
+          setOrderedChanges((prevOrderedChanges) => {
+            const existingIds = new Set(
+              prevOrderedChanges.map((item) => item.path),
+            );
 
-          // Filter out items that no longer exist in the API response
-          const existingItems = orderedChanges.filter((item) =>
-            currentIds.has(item.path),
-          );
+            // Filter out items that already exist in orderedChanges
+            const newItems = currentData.filter(
+              (item) => !existingIds.has(item.path),
+            );
 
-          // Add new items to the beginning
-          setOrderedChanges([...newItems, ...existingItems]);
+            // Filter out items that no longer exist in the API response
+            const existingItems = prevOrderedChanges.filter((item) =>
+              currentIds.has(item.path),
+            );
+
+            // Add new items to the beginning
+            return [...newItems, ...existingItems];
+          });
         } else {
           // If not an array, just use the data directly
-          setOrderedChanges([currentData]);
+          setOrderedChanges([currentData as unknown as GitChange]);
         }
       }
     }
